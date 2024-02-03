@@ -89,3 +89,19 @@ agg_item = agg.item()
 # print(agg)
 # print(agg_item)
 
+# in place operations are denoted by an _ and change the object they're acting on, eg.
+# print(tensor_x)
+tensor_x.add_(5)
+# print(tensor_x)
+
+# can change from tensor back to numpy using .numpy()
+t = torch.ones(5)
+n = t.numpy()
+# print(t)
+# print(n)
+
+# and can change from numpy array to tensor using torch.from_numpy()
+n = np.array([2,3,4])
+t = torch.from_numpy(n)
+# print(n)
+# print(t)
