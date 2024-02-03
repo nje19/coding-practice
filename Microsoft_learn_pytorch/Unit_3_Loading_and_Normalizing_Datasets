@@ -1,0 +1,72 @@
+#%%
+import torch
+from torch.utils.data import Dataset
+from torchvision import datasets
+from torchvision.transforms import ToTensor, Lambda
+import matplotlib.pyplot as plt
+
+# Loading in the datasets
+
+training_data = datasets.FashionMNIST(
+    root = 'data',
+    train = True,
+    download = True,
+    transform = ToTensor()
+)
+
+test_data = datasets.FashionMNIST(
+    root = 'data',
+    train = False,
+    download = True,
+    transform = ToTensor()
+)
+
+# Iterating and visualizing the datasets
+
+labels_map = {
+    0: "T-Shirt",
+    1: "Trouser",
+    2: "Pullover",
+    3: "Dress",
+    4: "Coat",
+    5: "Sandal",
+    6: "Shirt",
+    7: "Sneaker",
+    8: "Bag",
+    9: "Ankle Boot",
+}
+
+# each item in training_data contains 28 rows and 28 columns (eg. list for each row with 28 items) containing a number from 0 - 1 denoting the intensity of the grayscale, and then the last piece of data in each item in training_dataset is the number of the class/label (eg. t-shirt, trousers, etc.) 
+
+# showing a sample of 9 images from the dataset
+figure = plt.figure(figsize=(8,8))
+cols, rows = 3, 3
+for i in range(1, cols*rows + 1):
+    # select random dataset item index and convert it from tensor to item (integer)
+    sample_idx = torch.randint(len(training_data),size=(1,)).item()
+    # there are two components to training_data items, so we can split them out here
+    img, label = training_data[sample_idx]
+    print(img.size())
+    figure.add_subplot(rows, cols, i)
+    plt.title(labels_map[label])
+    plt.axis("off")
+    # .squeeze() removes singleton dimensions, takes size from [1,28,28] to [28,28]
+    plt.imshow(img.squeeze(),cmap='gray')
+plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
